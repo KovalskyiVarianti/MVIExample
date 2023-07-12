@@ -13,6 +13,9 @@ import com.example.mviexample.databinding.FragmentDetailBinding
 import com.example.mviexample.presentation.detail.effect.DetailEffect
 import com.example.mviexample.presentation.detail.intent.DetailIntent
 import com.example.mviexample.presentation.detail.state.DetailState
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
@@ -60,6 +63,18 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 Lifecycle.State.CREATED
             ).collect(::handleEffect)
         }
+
+        CoroutineScope(Dispatchers.Main).launch {
+
+
+            var testClass = TestClass("")
+            var i = 0
+            while (true) {
+                testClass = TestClass(testClass.name + i++)
+                println(testClass.name)
+                delay(1)
+            }
+        }
     }
 
     private fun handleState(state: DetailState) {
@@ -90,3 +105,5 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         super.onDestroyView()
     }
 }
+
+class TestClass(val name: String)
