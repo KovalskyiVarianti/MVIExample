@@ -13,6 +13,9 @@ import com.example.mviexample.databinding.FragmentDetailBinding
 import com.example.mviexample.presentation.detail.effect.DetailEffect
 import com.example.mviexample.presentation.detail.intent.DetailIntent
 import com.example.mviexample.presentation.detail.state.DetailState
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
@@ -72,6 +75,13 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                     progressBar.hide()
                     name.text = state.entity.name
                     description.text = state.entity.description
+                    CoroutineScope(Dispatchers.Main).launch {
+                        while (true) {
+                            val message = binding?.name?.text.toString()
+                            println(message)
+                            delay(2000)
+                        }
+                    }
                 }
             }
         }
